@@ -21,8 +21,8 @@ const ShowTime = (props) => {
   )
 }
 
-function App() {
-  const [lapsNumber, setLapsNumber] = useState(0) //Initial Laps Number
+function App () {
+  const [lapsNumber, setLapsNumber] = useState(0) // Initial Laps Number
   const [time, setTime] = useState(0)
 
   useEffect(() => {
@@ -52,7 +52,7 @@ function App() {
       <Button text='Start' />
       <Button text='Restart' />
     </div>
-  );
+  )
 }
 
 export default App
