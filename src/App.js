@@ -1,7 +1,4 @@
-import React, { useState } from 'react'
-
-
-
+import React, { useState, useEffect } from 'react'
 
 const ShowLaps = (props) => {
   return (
@@ -14,10 +11,11 @@ const ShowLaps = (props) => {
 
 const Button = (props) => <button onClick={props.onClick}>{props.text}</button>
 
-const ShowTime = () => {
+const ShowTime = (props) => {
   return (
     <p>
-      01:30<br />
+      {props.time}
+      <br />
       Average time lap
     </p>
   )
@@ -25,6 +23,13 @@ const ShowTime = () => {
 
 function App() {
   const [lapsNumber, setLapsNumber] = useState(0) //Initial Laps Number
+  const [time, setTime] = useState(0)
+
+  useEffect(() => {
+    setInterval(() => {
+      console.log('Called setInterval() every one second')
+    }, 1000)
+  }, [])
 
   const increment = () => {
     setLapsNumber(lapsNumber + 1)
@@ -43,7 +48,7 @@ function App() {
       <Button onClick={increment} text='+' />
       <Button onClick={decrement} text='-' />
 
-      <ShowTime />
+      <ShowTime time={time} />
       <Button text='Start' />
       <Button text='Restart' />
     </div>
