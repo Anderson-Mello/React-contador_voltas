@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const ShowLaps = () => {
+
+
+
+const ShowLaps = (props) => {
   return (
     <p>
-      10 <br />
+      {props.laps} <br />
       Laps
     </p>
   )
 }
 
-const Button = ( props) => <button>{props.text}</button>
+const Button = (props) => <button onClick={props.onClick}>{props.text}</button>
 
 const ShowTime = () => {
   return (
@@ -21,16 +24,28 @@ const ShowTime = () => {
 }
 
 function App() {
+  const [lapsNumber, setLapsNumber] = useState(0) //Initial Laps Number
+
+  const increment = () => {
+    setLapsNumber(lapsNumber + 1)
+  }
+
+  const decrement = () => {
+    if (lapsNumber > 0) {
+      setLapsNumber(lapsNumber - 1)
+    }
+  }
+
   return (
     <div>
-      <ShowLaps />
+      <ShowLaps laps={lapsNumber} />
 
-      <Button text='+'/>
-      <Button text='-'/>
+      <Button onClick={increment} text='+' />
+      <Button onClick={decrement} text='-' />
 
       <ShowTime />
-      <Button text='Start'/>
-      <Button text='Restart'/>
+      <Button text='Start' />
+      <Button text='Restart' />
     </div>
   );
 }
