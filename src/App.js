@@ -1,31 +1,7 @@
 import React, { useState, useEffect } from 'react'
-
-const ShowLaps = (props) => {
-  return (
-    <p>
-      {props.laps} <br />
-      Laps
-    </p>
-  )
-}
-
-const Button = (props) => <button onClick={props.onClick}>{props.text}</button>
-
-const ShowTime = (props) => {
-  const time = props.time
-  const minutes = parseInt(time / 60)
-  const seconds = time % 60
-  const minutesStr = minutes < 10 ? '0' + minutes : minutes
-  const secondsStr = seconds < 10 ? '0' + seconds : seconds
-
-  return (
-    <p>
-      {`${minutesStr}:${secondsStr}`}
-      <br />
-      Average time lap
-    </p>
-  )
-}
+import ShowLaps from './ShowLaps'
+import ShowTime from './ShowTime'
+import Button from './Button'
 
 function App () {
   const [lapsNumber, setLapsNumber] = useState(0) // Initial Laps Number
