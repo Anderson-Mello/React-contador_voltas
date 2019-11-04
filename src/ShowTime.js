@@ -8,8 +8,8 @@ const ShowTime = (props) => {
   const secondsStr = seconds < 10 ? '0' + seconds : seconds
 
   return (
-    <p>
-      {`${minutesStr}:${secondsStr}`}
+    <p className='time'>
+      <span>{`${minutesStr}:${secondsStr}`}</span>
       <br />
       Average time lap
     </p>

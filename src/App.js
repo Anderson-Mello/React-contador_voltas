@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ShowLaps from './ShowLaps'
 import ShowTime from './ShowTime'
 import Button from './Button'
+import './styles.css'
 
 function App () {
   const [lapsNumber, setLapsNumber] = useState(0) // Initial Laps Number
@@ -46,13 +47,13 @@ function App () {
     <div>
       <ShowLaps laps={lapsNumber} />
 
-      <Button onClick={increment} text='+' />
-      <Button onClick={decrement} text='-' />
+      <Button className='bigger' onClick={increment} text='+' />
+      <Button className='bigger' onClick={decrement} text='-' />
       {
         lapsNumber > 0 &&
           <ShowTime time={Math.round(time / lapsNumber)} />
       }
-      <Button onClick={toggleRunning} text='Start' />
+      <Button onClick={toggleRunning} text={running ? 'Pause' : 'Start'} />
       <Button onClick={reset} text='Restart' />
     </div>
   )
