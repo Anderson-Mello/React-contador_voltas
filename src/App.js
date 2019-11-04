@@ -12,9 +12,15 @@ const ShowLaps = (props) => {
 const Button = (props) => <button onClick={props.onClick}>{props.text}</button>
 
 const ShowTime = (props) => {
+  const time = props.time
+  const minutes = parseInt(time / 60)
+  const seconds = time % 60
+  const minutesStr = minutes < 10 ? '0' + minutes : minutes
+  const secondsStr = seconds < 10 ? '0' + seconds : seconds
+
   return (
     <p>
-      {props.time}
+      {`${minutesStr}:${secondsStr}`}
       <br />
       Average time lap
     </p>
@@ -23,13 +29,27 @@ const ShowTime = (props) => {
 
 function App () {
   const [lapsNumber, setLapsNumber] = useState(0) // Initial Laps Number
+  const [running, setRunning] = useState(false)
   const [time, setTime] = useState(0)
 
   useEffect(() => {
-    setInterval(() => {
-      console.log('Called setInterval() every one second')
-    }, 1000)
-  }, [])
+    let timer = null
+
+    if (running) {
+      timer = setInterval(() => {
+        setTime(old => old + 1)
+      }, 1000)
+    }
+    return () => {
+      if (timer) { // truthy or != null
+        clearInterval(timer)
+      }
+    }
+  }, [running])
+
+  const toggleRunning = () => {
+    setRunning(!running)
+  }
 
   const increment = () => {
     setLapsNumber(lapsNumber + 1)
@@ -41,16 +61,23 @@ function App () {
     }
   }
 
+  const reset = () => {
+    setLapsNumber(0)
+    setTime(0)
+  }
+
   return (
     <div>
       <ShowLaps laps={lapsNumber} />
 
       <Button onClick={increment} text='+' />
       <Button onClick={decrement} text='-' />
-
-      <ShowTime time={time} />
-      <Button text='Start' />
-      <Button text='Restart' />
+      {
+        lapsNumber > 0 &&
+          <ShowTime time={Math.round(time / lapsNumber)} />
+      }
+      <Button onClick={toggleRunning} text='Start' />
+      <Button onClick={reset} text='Restart' />
     </div>
   )
 }
